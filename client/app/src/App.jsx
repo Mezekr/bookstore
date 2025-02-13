@@ -3,6 +3,8 @@ import './App.css';
 
 function App() {
   const [books, setBooks] = useState([]);
+  const [title, setTitle] = useState('');
+  const [releaseYear, setReleaseYear] = useState(0);
 
   const BASE_URL = 'http://127.0.0.1:8000/api/books';
 
@@ -24,13 +26,45 @@ function App() {
     fetchBooks();
   }, []);
 
+  const addBook = async () => {
+    try {
+      const bookdetails = {
+        title: title,
+        release_year: releaseYear,
+      };
+
+      const response = await fetch(`${BASE_URL}/create`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(bookdetails),
+      });
+
+      const newBook = await response.json();
+      setBooks((prev) => [...prev, newBook]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <h1>Book Store</h1>
       <div>
-        <input type='text' placeholder='Book Tittle' />
-        <input type='number' placeholder='Realse year' />
-        <button type='submit'>Add Book</button>
+        <input
+          type='text'
+          placeholder='Book Tittle'
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <input
+          type='number'
+          placeholder='Release Year'
+          onChange={(e) => setReleaseYear(e.target.value)}
+        />
+        <button type='submit' onClick={addBook}>
+          Add Book
+        </button>
       </div>
       <div>
         {books.length <= 0 ? (
