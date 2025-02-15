@@ -15,8 +15,10 @@ function App() {
       if (!response.ok) {
         console.error('Something went wrong');
       }
+      if (!response.ok) {
+        throw new Error(`Failed to fetch books! status: ${response.status}`);
+      }
       const data = await response.json();
-      // console.log(data);
       setBooks(data);
     } catch (error) {
       console.log(error);
@@ -34,13 +36,16 @@ function App() {
         release_year: releaseYear,
       };
 
-      const response = await fetch(`${BASE_URL}/create`, {
+      const response = await fetch(`${BASE_URL}create`, {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
         },
         body: JSON.stringify(bookdetails),
       });
+      if (!response.ok) {
+        throw new Error(`Failure to add a Book! status: ${response.status}`);
+      }
 
       const newBook = await response.json();
       setBooks((prev) => [...prev, newBook]);
@@ -63,7 +68,11 @@ function App() {
         },
         body: JSON.stringify(bookdetails),
       });
-
+      if (!response.ok) {
+        throw new Error(
+          `Failed to update the Book! status: ${response.status}`
+        );
+      }
       const data = await response.json();
       setBooks((prev) =>
         prev.map((book) => {
@@ -74,6 +83,22 @@ function App() {
           }
         })
       );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteBook = async (pk) => {
+    try {
+      const response = await fetch(`${BASE_URL}${pk}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error(
+          `Failed to delete the Book! status: ${response.status}`
+        );
+      }
+      setBooks((prev) => prev.filter((book) => book.id !== pk));
     } catch (error) {
       console.error(error);
     }
@@ -114,6 +139,7 @@ function App() {
                 <button onClick={() => updateBook(book.id, book.release_year)}>
                   Edit
                 </button>
+                <button onClick={() => deleteBook(book.id)}>Delete</button>
               </div>
             );
           })
