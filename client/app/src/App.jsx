@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import BookCard from '../componets/BookCard';
 import './App.css';
 
 function App() {
@@ -126,23 +127,15 @@ function App() {
         {books.length <= 0 ? (
           <h1>NO Book to display</h1>
         ) : (
-          books.map((book) => {
-            return (
-              <div key={book.id}>
-                <p>Title: {book.title}</p>
-                <p>Release Year: {book.release_year}</p>
-                <input
-                  type='text'
-                  placeholder='Edit Title'
-                  onChange={(e) => setNewTitle(e.target.value)}
-                />
-                <button onClick={() => updateBook(book.id, book.release_year)}>
-                  Edit
-                </button>
-                <button onClick={() => deleteBook(book.id)}>Delete</button>
-              </div>
-            );
-          })
+          books.map((book) => (
+            <BookCard
+              key={book.id}
+              book={book}
+              setNewTitle={setNewTitle}
+              updateBook={updateBook}
+              deleteBook={deleteBook}
+            />
+          ))
         )}
       </div>
     </>
