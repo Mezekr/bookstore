@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import BookCard from '../componets/BookCard';
-import './App.css';
+// import './App.css';
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -106,39 +106,46 @@ function App() {
   };
 
   return (
-    <>
-      <h1>Book Store</h1>
-      <div>
-        <input
-          type='text'
-          placeholder='Book Tittle'
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <input
-          type='number'
-          placeholder='Release Year'
-          onChange={(e) => setReleaseYear(e.target.value)}
-        />
-        <button type='submit' onClick={addBook}>
-          Add Book
-        </button>
+    <main>
+      <div className='pattern'>
+        <div className='wrapper'>
+          <header>
+            <h1>Book Store</h1>
+            <div>
+              <input
+                className='search'
+                type='text'
+                placeholder='Book Tittle'
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <input
+                type='number'
+                placeholder='Release Year'
+                onChange={(e) => setReleaseYear(e.target.value)}
+              />
+              <button type='submit' onClick={addBook}>
+                Add Book
+              </button>
+            </div>
+          </header>
+          <section className='all-books'>
+            {books.length <= 0 ? (
+              <h1>NO Book to display</h1>
+            ) : (
+              books.map((book) => (
+                <BookCard
+                  key={book.id}
+                  book={book}
+                  setNewTitle={setNewTitle}
+                  updateBook={updateBook}
+                  deleteBook={deleteBook}
+                />
+              ))
+            )}
+          </section>
+        </div>
       </div>
-      <div>
-        {books.length <= 0 ? (
-          <h1>NO Book to display</h1>
-        ) : (
-          books.map((book) => (
-            <BookCard
-              key={book.id}
-              book={book}
-              setNewTitle={setNewTitle}
-              updateBook={updateBook}
-              deleteBook={deleteBook}
-            />
-          ))
-        )}
-      </div>
-    </>
+    </main>
   );
 }
 
