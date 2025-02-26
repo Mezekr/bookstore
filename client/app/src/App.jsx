@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import BookCard from '../componets/BookCard';
+import BookAdd from '../components /BookAdd';
+import BookCard from '../components /BookCard';
 // import './App.css';
 
 function App() {
@@ -105,12 +106,19 @@ function App() {
     }
   };
 
+  // const resetInputField = () => {
+  //   setTitle('');
+  //   setNewTitle('');
+  //   setReleaseYear(0);
+  // };
+
   return (
     <main>
       <div className='pattern'>
         <div className='wrapper'>
           <header>
             <h1>Book Store</h1>
+            <BookAdd />
             <div>
               <input
                 className='search'
