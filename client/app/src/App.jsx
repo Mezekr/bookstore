@@ -1,14 +1,10 @@
 import { useEffect, useState } from 'react';
 import BookAdd from '../components /BookAdd';
 import BookCard from '../components /BookCard';
-// import './App.css';
 
 function App() {
   const [books, setBooks] = useState([]);
-  const [title, setTitle] = useState('');
-  const [releaseYear, setReleaseYear] = useState(0);
   const [newTitle, setNewTitle] = useState('');
-
   const BASE_URL = 'http://127.0.0.1:8000/api/books/';
 
   const fetchBooks = async () => {
@@ -31,7 +27,7 @@ function App() {
     fetchBooks();
   }, []);
 
-  const addBook = async () => {
+  const addBook = async (title, releaseYear) => {
     try {
       const bookdetails = {
         title: title,
@@ -106,35 +102,13 @@ function App() {
     }
   };
 
-  // const resetInputField = () => {
-  //   setTitle('');
-  //   setNewTitle('');
-  //   setReleaseYear(0);
-  // };
-
   return (
     <main>
       <div className='pattern'>
         <div className='wrapper'>
           <header>
             <h1>Book Store</h1>
-            <BookAdd />
-            <div>
-              <input
-                className='search'
-                type='text'
-                placeholder='Book Tittle'
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <input
-                type='number'
-                placeholder='Release Year'
-                onChange={(e) => setReleaseYear(e.target.value)}
-              />
-              <button type='submit' onClick={addBook}>
-                Add Book
-              </button>
-            </div>
+            <BookAdd onAddBook={addBook} />
           </header>
           <section className='all-books'>
             {books.length <= 0 ? (
