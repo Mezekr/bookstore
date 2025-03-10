@@ -11,9 +11,8 @@ const BookAdd = ({ onAddBook }) => {
     onAddBook(title, releaseYear), resetInputField();
   };
   return (
-    <div className='search'>
+    <div className='book-add'>
       <input
-        className='search'
         type='text'
         value={title}
         placeholder='Book Tittle'
