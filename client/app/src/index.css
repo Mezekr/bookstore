@@ -6,18 +6,21 @@
 @theme {
 	--color-primary: #030014;
 
-	--color-light-100: #cecefb;
+	--color-light-100: oklch(0.623 0.214 259.815);
+
 	--color-light-200: #a8b5db;
 
-	--color-gray-100: #9ca4ab;
+	--color-light-300: oklch(0.704 0.04 256.788);
 
-	--color-dark-100: #0f0d23;
+	--color-gray-100: oklch(0.446 0.03 256.802);
+
+	--color-dark-100: oklch(0.21 0.034 264.665);
 
 	--font-dm-sans: DM Sans, sans-serif;
 
 	--breakpoint-xs: 480px;
 
-	--background-image-hero-pattern: url('/hero-bg.png');
+
 }
 
 @layer base {
@@ -48,16 +51,16 @@
 	}
 
 	input {
-			@apply w-full bg-transparent py-2 sm:pr-10 pl-10 text-base text-gray-200 placeholder-light-200 outline-hidden;
+			@apply w-full bg-gray-100 py-2 sm:pr-1 pl-2  my-3 rounded-xl text-base text-gray-200 placeholder-light-200  outline-hidden;
 		}
 	button {
-		@apply mx-auto bg-light-100 w-full my-5 rounded-lg md:w-2/5 md:mx-2;
+		@apply mx-auto bg-light-100 w-full my-2 rounded-lg ;
 	}
 }
 
 @layer components {
 	.pattern {
-		@apply bg-hero-pattern w-screen h-screen bg-center bg-cover absolute z-0;
+		@apply  w-screen h-screen bg-center bg-cover absolute z-0;
 	}
 
 	.wrapper {
@@ -65,20 +68,16 @@
 	}
 
 
-	.search {
-		@apply w-full bg-light-100/5 px-4 py-3 rounded-lg mt-10 max-w-3xl mx-auto;
-
-		& div {
-			@apply relative flex items-center;
-		}
-
-		& img {
-			@apply absolute left-2 h-5 w-5;
-		}
+	.book-add {
+		@apply  flex gap-4 w-full bg-gray-800 px-4 py-5 rounded-lg mt-10 mb-10 max-w-3xl mx-auto;
 
 		& input {
-			@apply w-full bg-transparent py-2 sm:pr-10 pl-10 text-base text-gray-200 placeholder-light-200 outline-hidden;
+			@apply w-full bg-gray-100 py-2 sm:pr-1 pl-2  rounded-xl text-base text-gray-200 placeholder-light-200  outline-hidden;
 		}
+		& button {
+		@apply mx-auto bg-light-100 w-full my-2 rounded-lg ;
+	}
+		
 	}
 
 	.all-books {
@@ -101,29 +100,6 @@
 			@apply mt-2 flex flex-row items-center flex-wrap gap-2;
 		}
 
-		& .rating {
-			@apply flex flex-row items-center gap-1;
-		}
-
-		& .rating img {
-			@apply size-4 object-contain;
-		}
-
-		& .rating p {
-			@apply font-bold text-base text-white;
-		}
-
-		& .content span {
-			@apply text-sm text-gray-100;
-		}
-
-		& .content .lang {
-			@apply capitalize text-gray-100 font-medium text-base;
-		}
-
-		& .content .year {
-			@apply text-gray-100 font-medium text-base;
-		}
 	}
 }
 
