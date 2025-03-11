@@ -10,6 +10,7 @@ const BookAdd = ({ onAddBook }) => {
   const onAddClick = () => {
     onAddBook(title, releaseYear), resetInputField();
   };
+
   return (
     <div className='book-add'>
       <input
